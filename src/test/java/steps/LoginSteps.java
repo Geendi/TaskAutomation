@@ -5,17 +5,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.HomePage;
 import pages.LoginPage;
-import tests.BaseTest;
 import org.testng.Assert;
 
 /**
  * LoginSteps class
  * ----------------
- * Glue code for Login.feature, reusing POM methods and validating outcomes.
+ * Glue code for Login. Feature, reusing POM methods and validating outcomes.
  */
 public class LoginSteps {
 
-    private final HomePage homePage = new HomePage(BaseTest.getDriver());
+    private final HomePage homePage = new HomePage();
     private LoginPage loginPage;
 
     @Given("User is on the Login Page")

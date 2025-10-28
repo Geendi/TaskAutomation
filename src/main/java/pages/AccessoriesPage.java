@@ -18,9 +18,9 @@ public class AccessoriesPage extends BasePage {
     private final By sortDropdown = By.id("sorter");
     private final By dorianProductLink = By.xpath("//a[contains(text(),'Dorian') or contains(text(),'Dorian Shoes')]");
 
-    public AccessoriesPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public AccessoriesPage() {
+        super();
+        //PageFactory.initElements(driver, this);
     }
 
     /** Opens Accessories → Shoes subcategory. */
@@ -39,6 +39,6 @@ public class AccessoriesPage extends BasePage {
     /** Opens Dorian product details and returns ProductPage. */
     public ProductPage openDorianProduct() {
         click(dorianProductLink);
-        return new ProductPage(driver);
+        return new ProductPage();
     }
 }

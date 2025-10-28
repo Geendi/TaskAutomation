@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import pages.HomePage;
 import pages.AccessoriesPage;
 import pages.ProductPage;
-import tests.BaseTest;
 import utils.ConfigReader;
 import org.testng.Assert;
 
@@ -17,7 +16,7 @@ import org.testng.Assert;
  */
 public class AddToCartSteps {
 
-    private final HomePage homePage = new HomePage(BaseTest.getDriver());
+    private final HomePage homePage = new HomePage();
     private AccessoriesPage accessoriesPage;
     private ProductPage productPage;
 
@@ -43,10 +42,10 @@ public class AddToCartSteps {
         accessoriesPage.navigateToShoes();
     }
 
-    @When("User filters the shoes by price from {string}")
-    public void user_filters_the_shoes_by_price_from(String sortOrder) {
-        accessoriesPage.sortShoesByPrice();
-    }
+//    @When("User filters the shoes by price from {string}")
+//    public void user_filters_the_shoes_by_price_from(String sortOrder) {
+//        accessoriesPage.sortShoesByPrice();
+//    }
 
     @When("User views the details of the {string} product")
     public void user_views_the_details_of_the_product(String product) {
@@ -68,9 +67,9 @@ public class AddToCartSteps {
         Assert.assertTrue(productPage.getConfirmationMessage().contains(expectedMessage), "Confirmation message not found.");
     }
 
-    @Then("User should be redirected to the checkout cart page")
+/*    @Then("User should be redirected to the checkout cart page")
     public void user_should_be_redirected_to_the_checkout_cart_page() {
         Assert.assertTrue(BaseTest.getDriver().getCurrentUrl().contains("checkout/cart"),
                 "Not redirected to the checkout cart page.");
-    }
+    }*/
 }

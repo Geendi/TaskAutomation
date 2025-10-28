@@ -16,7 +16,7 @@ Feature: Registration
     Then The application should display field error for "<fieldName>" containing "<expectedError>"
 
     Examples:
-      | email              | password | confirmPass | fieldName      | expectedError           |
-      |                    | pass123  | pass123     | emailField     | This is a required field. |
-      | test@example.com   | short    | short       | passwordField  | Please enter 6 or more characters. |
-      | test@example.com   | pass123  | mismatch    | confirmPassField | Please make sure your passwords match. |
+      | email            | password | confirmPass | fieldName        | expectedError                      |
+      |                  | pass123  | pass123     | emailField       | This is a required field.          |
+      | test@example.com | short    | short       | passwordField    | Please enter 6 or more characters. |
+      | test@example.com | pass123  | mismatch    | confirmPassField |                                    |

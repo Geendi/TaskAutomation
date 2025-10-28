@@ -24,9 +24,9 @@ public class RegistrationPage extends BasePage {
     private final By successMessage = By.cssSelector("li[class='success-msg'] ul li span");
 
     // Constructor
-    public RegistrationPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public RegistrationPage() {
+        super();
+        //PageFactory.initElements(driver, this);
     }
 
     /** Fills all fields and submits registration form. Returns HomePage after navigation. */
@@ -37,7 +37,7 @@ public class RegistrationPage extends BasePage {
         scrollAndType(passwordField, password);
         scrollAndType(confirmPassField, confirmPass);
         scrollAndClick(registerButton);
-        return new HomePage(driver);
+        return new HomePage();
     }
 
     /** Returns same page for chaining. */

@@ -21,16 +21,16 @@ public class HomePage extends BasePage {
     private final By accessoriesLink = By.xpath("//a[contains(text(),'Accessories')]");
     private final By loggedInIndicator = By.cssSelector("div[class='page-title'] h1");
 
-    public HomePage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public HomePage() {
+        super();
+        //PageFactory.initElements(driver, this);
     }
 
     /** Navigate to Login page by clicking the login link. */
     public LoginPage clickLoginLink() {
         click(accountMenu);
         click(loginLink);
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 
 
@@ -44,13 +44,13 @@ public class HomePage extends BasePage {
     public RegistrationPage clickRegisterLink() {
         click(accountMenu);
         click(registerLink);
-        return new RegistrationPage(driver);
+        return new RegistrationPage();
     }
 
     /** Navigate to Accessories page by clicking Accessories link. */
     public AccessoriesPage clickAccessories() {
         click(accessoriesLink);
-        return new AccessoriesPage(driver);
+        return new AccessoriesPage();
     }
 
     /** Returns true if logged-in indicator is displayed (basic login assertion). */

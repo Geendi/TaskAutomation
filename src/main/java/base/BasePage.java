@@ -3,6 +3,7 @@ package base;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.ConfigReader;
 
 import java.time.Duration;
 
@@ -17,9 +18,14 @@ public class BasePage {
     private final WebDriverWait wait;
 
     // Constructor initializes WebDriver and WebDriverWait
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    // Constructor now gets the driver from the factor
+    public BasePage() {
+        /*this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));*/
+        this.driver = WebDriverFactory.getDriver();
+        // You can also read the wait time from your config
+        int waitTime = Integer.parseInt(ConfigReader.getProperty("implicitWait"));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
     }
 
     /** Clicks on a given WebElement after waiting for it to be clickable. */
@@ -57,8 +63,9 @@ public class BasePage {
 
     /** Scrolls the page until the specified element is visible. */
     public void scrollToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", locator);
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     public void scrollAndClick(By locator) {

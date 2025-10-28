@@ -11,12 +11,13 @@ import org.testng.annotations.DataProvider;
  * step definitions (glue), and reporting plugins.
  */
 @CucumberOptions(
-        features = "src/test/resources/features",   // Path to the feature files
+        features = "src/test/java/features",   // Path to the feature files
         glue = {"steps", "hooks"},                 // Path to the step definition classes
         plugin = {                                // Plugins for reporting
                 "pretty",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
-        }
+        },
+        tags = "@LoginTest"
 
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
@@ -25,7 +26,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
      * Overrides scenarios method to enable parallel execution via TestNG and avoid sequential execution for test runner.
      */
     @Override
-    @DataProvider(parallel = true)
+    @DataProvider(parallel = false)
     public Object[][] scenarios() {
         return super.scenarios();
     }

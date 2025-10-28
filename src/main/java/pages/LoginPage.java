@@ -20,9 +20,9 @@ public class LoginPage extends BasePage {
     private final By loginButton = By.id("send2");
     private final By errorMessage = By.id("li[class='error-msg'] ul li span");
 
-    public LoginPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public LoginPage() {
+        super();
+        //PageFactory.initElements(driver, this);
     }
 
     /** Enters username into the username field. Returns the same page for chaining. */
@@ -40,7 +40,7 @@ public class LoginPage extends BasePage {
     /** Clicks the login button to submit credentials. Returns HomePage after navigation. */
     public HomePage clickLogin() {
         scrollAndClick(loginButton);
-        return new HomePage(driver);
+        return new HomePage();
     }
 
     /** Returns the displayed error message after a failed login attempt. */

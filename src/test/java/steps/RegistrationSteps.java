@@ -5,8 +5,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.HomePage;
 import pages.RegistrationPage;
-import utils.TestDataGenerator;
-import tests.BaseTest;
 import org.testng.Assert;
 
 /**
@@ -16,7 +14,7 @@ import org.testng.Assert;
  */
 public class RegistrationSteps {
 
-    private final HomePage homePage = new HomePage(BaseTest.getDriver());
+    private final HomePage homePage = new HomePage();
     private RegistrationPage regPage;
 
     /**
@@ -35,13 +33,12 @@ public class RegistrationSteps {
     }
 
     @When("User attempts registration with unique {string} and {string}")
-    public void user_attempts_registration_with_unique_credentials(String password, String confirmPass) {
-        String uniqueEmail = TestDataGenerator.generateUniqueEmail();
+    public void user_attempts_registration_with_unique_credentials(String email, String password, String confirmPass) {
         regPage = homePage.clickRegisterLink();
 
         regPage.enterFirstName(FNAME)
                 .enterLastName(LNAME)
-                .enterEmail(uniqueEmail)
+                .enterEmail(email)
                 .enterPassword(password)
                 .enterConfirmPass(confirmPass)
                 .clickRegister();
@@ -60,13 +57,9 @@ public class RegistrationSteps {
 
     @When("User attempts registration with invalid email {string}, password {string}, and confirm password {string}")
     public void user_attempts_registration_with_invalid_inputs(String email, String password, String confirmPass) {
-
-        // Use a unique email if the test is focused on password validation, otherwise use the invalid email from Gherkin.
-        String testEmail = email.isEmpty() ? TestDataGenerator.generateUniqueEmail() : email;
-
         regPage.enterFirstName(FNAME)
                 .enterLastName(LNAME)
-                .enterEmail(testEmail)
+                .enterEmail(email)
                 .enterPassword(password)
                 .enterConfirmPass(confirmPass)
                 .clickRegister();

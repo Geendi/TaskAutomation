@@ -18,9 +18,9 @@ public class ProductPage extends BasePage {
     private final By addToCartButton = By.cssSelector("product-addtocart-button");
     private final By successMessage = By.cssSelector(".color-options .option");
 
-    public ProductPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public ProductPage() {
+        super();
+        //PageFactory.initElements(driver, this);
     }
 
     /** Selects product color and size before adding to cart. Returns same page for chaining. */
@@ -33,7 +33,7 @@ public class ProductPage extends BasePage {
     /** Adds product to cart and returns HomePage after navigation to reflect app flow. */
     public HomePage addToCart() {
         click(addToCartButton);
-        return new HomePage(driver);
+        return new HomePage();
     }
 
     /** Returns the confirmation message displayed after adding to cart. */
