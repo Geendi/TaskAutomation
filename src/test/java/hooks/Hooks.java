@@ -4,10 +4,13 @@ import base.WebDriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import utils.ConfigReader;
+
+import java.io.ByteArrayInputStream;
 
 public class Hooks {
 
@@ -26,7 +29,7 @@ public class Hooks {
         WebDriverFactory.getDriver().get(ConfigReader.getProperty("baseUrl"));
     }
 
-    @After
+/*    @After
     public void teardown(Scenario scenario) {
         WebDriver driver = WebDriverFactory.getDriver();
 
@@ -38,5 +41,27 @@ public class Hooks {
 
         // 2. Quit the driver using your WebDriverFactory
         WebDriverFactory.quitDriver();
+    }*/
+
+    @After
+    public void teardown(Scenario scenario) {
+        WebDriver driver = WebDriverFactory.getDriver();
+
+        if (driver != null) {
+            // Take screenshot if failed
+            if (scenario.isFailed()) {
+                final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+
+                // This is the new Allure attachment method
+                Allure.addAttachment(
+                        "FailedScenarioScreenshot",
+                        "image/png",
+                        new ByteArrayInputStream(screenshot),
+                        ".png"
+                );
+            }
+
+            WebDriverFactory.quitDriver();
+        }
     }
 }

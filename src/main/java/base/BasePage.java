@@ -17,13 +17,9 @@ public class BasePage {
     protected WebDriver driver;
     private final WebDriverWait wait;
 
-    // Constructor initializes WebDriver and WebDriverWait
     // Constructor now gets the driver from the factor
     public BasePage() {
-        /*this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));*/
         this.driver = WebDriverFactory.getDriver();
-        // You can also read the wait time from your config
         int waitTime = Integer.parseInt(ConfigReader.getProperty("implicitWait"));
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
     }

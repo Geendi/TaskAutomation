@@ -1,19 +1,21 @@
 @LoginTest
 Feature: Login
 
-  Scenario Outline: Successful user login with valid credentials
+  Background:
     Given User is on the Login Page
-    When User logs in with username "<username>" and password "<password>"
+
+  Scenario Outline: Successful user login with valid credentials
+    When User enters valid credentials "<username>" and "<password>"
+    And User clicks the login button
     Then User should be redirected to the account dashboard with the header "<expected>"
     Examples:
       | username              | password     | expected     |
       | validUser@example.com | ValidPass123 | MY DASHBOARD |
 
   Scenario Outline: Failed login attempt with invalid credentials
-    Given User is on the Login Page
-    When User attempts login with username "<username>" and password "<password>"
-    Then The application should display the global error message "<expected>"
+    When User attempts login with invalid credentials "<username>" and "<password>"
+    And User clicks the login button
+    Then an error message should be displayed "<expected message>"
     Examples:
-      | username                | password       | expected |
+      | username                | password       | expected message |
       | inValidUser@example.com | inValidPass123 | Invalid login or password.         |
-

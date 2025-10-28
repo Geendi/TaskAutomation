@@ -2,8 +2,6 @@ package pages;
 
 import base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 /**
@@ -20,34 +18,25 @@ public class RegistrationPage extends BasePage {
     private final By passwordField = By.id("password");
     private final By confirmPassField = By.cssSelector("#confirmation");
     private final By registerButton = By.cssSelector("button[title='Register']");
-    private final By errorMessage = By.cssSelector(".error-message");
     private final By successMessage = By.cssSelector("li[class='success-msg'] ul li span");
+    private final By emailError = By.id("advice-validate-email-email_address");
+    private final By passwordError = By.id("advice-validate-password-password");
+    private final By confirmPassError = By.id("advice-validate-cpassword-confirmation");
 
-    // Constructor
     public RegistrationPage() {
         super();
-        //PageFactory.initElements(driver, this);
     }
 
-    /** Fills all fields and submits registration form. Returns HomePage after navigation. */
-    public HomePage enterFullCredentials(String fname, String lname, String email, String password, String confirmPass) {
-        scrollAndType(firstNameField, fname);
-        scrollAndType(lastNameField, lname);
-        scrollAndType(emailField, email);
-        scrollAndType(passwordField, password);
-        scrollAndType(confirmPassField, confirmPass);
-        scrollAndClick(registerButton);
-        return new HomePage();
-    }
-
-    /** Returns same page for chaining. */
-    public RegistrationPage enterFirstName(String fname) {
-        scrollAndType(firstNameField, fname);
+    /**
+     * Returns same page for chaining.
+     */
+    public RegistrationPage enterFirstName(String fName) {
+        scrollAndType(firstNameField, fName);
         return this;
     }
 
-    public RegistrationPage enterLastName(String lname) {
-        scrollAndType(lastNameField, lname);
+    public RegistrationPage enterLastName(String lName) {
+        scrollAndType(lastNameField, lName);
         return this;
     }
 
@@ -61,24 +50,34 @@ public class RegistrationPage extends BasePage {
         return this;
     }
 
-    public RegistrationPage enterConfirmPass(String confirmPass){
+    public void enterConfirmPass(String confirmPass) {
         scrollAndType(confirmPassField, confirmPass);
-        return this;
     }
 
-    public RegistrationPage clickRegister() {
+    public void clickRegister() {
         scrollAndClick(registerButton);
-        return this;
     }
 
-    /** Returns visible error message text. */
-    public String getErrorMessage() {
-        return getText(errorMessage);
-    }
-
-    public void verifySuccessMessage(String expected){
+    public void verifySuccessMessage(String expected) {
         String actual = getText(successMessage);
         Assert.assertTrue(actual.contains(expected),
                 "Expected error message to contain: " + expected + " but got: " + actual);
+    }
+
+    /**
+     * Gets the error text for a specific field.
+     */
+    public String getErrorMessageForField(String fieldName) {
+        switch (fieldName) {
+            case "emailField":
+                return getText(emailError);
+            case "passwordField":
+                return getText(passwordError);
+            case "confirmPassField":
+                return getText(confirmPassError);
+            default:
+                // If you pass a typo from the feature file, the test will fail
+                throw new IllegalArgumentException("Invalid fieldName specified: " + fieldName);
+        }
     }
 }

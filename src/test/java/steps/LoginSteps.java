@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,32 +23,31 @@ public class LoginSteps {
         loginPage = homePage.clickLoginLink();
     }
 
-    @When("User logs in with username {string} and password {string}")
-    public void user_logs_in_with_valid_credentials(String username, String password) {
-        // Username and password come from the Gherkin Example table
+    @When("User enters valid credentials {string} and {string}")
+    public void user_enters_valid_credentials(String username, String password) {
         loginPage.enterUsername(username)
-                .enterPassword(password)
-                .clickLogin();
+                .enterPassword(password);
+    }
+
+    @And("User clicks the login button")
+    public void user_clicks_the_login_button(){
+        loginPage.clickLogin();
     }
 
     @Then("User should be redirected to the account dashboard with the header {string}")
     public void user_should_be_redirected_to_the_account_dashboard_with_the_header(String expectedHeader) {
-        // Validation for successful login
         Assert.assertTrue(homePage.assertLoggedIn().contains(expectedHeader),
                 "Expected header not found after successful login.");
     }
 
-    @When("User attempts login with username {string} and password {string}")
+    @When("User attempts login with invalid credentials {string} and {string}")
     public void user_attempts_login_with_invalid_credentials(String username, String password) {
-        // Username and password come from the Gherkin Example table
         loginPage.enterUsername(username)
-                .enterPassword(password)
-                .clickLogin();
+                .enterPassword(password);
     }
 
-    @Then("The application should display the global error message {string}")
+    @Then("an error message should be displayed {string}")
     public void the_application_should_display_the_global_error_message(String expectedError) {
-        // Validation for failed login
         loginPage.verifyErrorMessage(expectedError);
     }
 }

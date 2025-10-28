@@ -18,11 +18,10 @@ public class LoginPage extends BasePage {
     private final By usernameField = By.id("email");
     private final By passwordField = By.id("pass");
     private final By loginButton = By.id("send2");
-    private final By errorMessage = By.id("li[class='error-msg'] ul li span");
+    private final By errorMessage = By.cssSelector("li[class='error-msg'] ul li span");
 
     public LoginPage() {
         super();
-        //PageFactory.initElements(driver, this);
     }
 
     /** Enters username into the username field. Returns the same page for chaining. */
@@ -38,9 +37,8 @@ public class LoginPage extends BasePage {
     }
 
     /** Clicks the login button to submit credentials. Returns HomePage after navigation. */
-    public HomePage clickLogin() {
+    public void clickLogin() {
         scrollAndClick(loginButton);
-        return new HomePage();
     }
 
     /** Returns the displayed error message after a failed login attempt. */

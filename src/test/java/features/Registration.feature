@@ -1,22 +1,24 @@
 Feature: Registration
 
-  Scenario Outline: Successful user registration with unique credentials
-    Given I am on the Home Page
-    When User attempts registration with unique "<password>" and "<confirmPass>"
-    Then User should see the success message "Thank you for registering with Tealium Ecommerce."
+  Background:
+    Given User is on the registration page
+
+  Scenario Outline: Successful user registration with valid credentials
+    When User attempts registration with valid "<password>" and "<confirm password>"
+    And User clicks the register button
+    Then User should see the success message "<expected message>"
 
     Examples:
-      | email | password     | confirmPass  | fieldName  | expectedError             |
-      |       | ValidPass123 | ValidPass123 | emailField | This is a required field. |
+      | password | confirm password | expected message |
+      | validPass123 | validPass123 | Thank you for registering with Tealium Ecommerce. |
 
   Scenario Outline: Verify error message for invalid registration inputs
-    Given User is on the Home Page
-    When User navigates to Registration page
-    And User attempts registration with invalid input: "<email>", "<password>", "<confirmPass>"
+    When User attempts registration with invalid email "<email>", password "<password>", and confirm password "<confirmPass>"
+    And User clicks the register button
     Then The application should display field error for "<fieldName>" containing "<expectedError>"
 
     Examples:
-      | email            | password | confirmPass | fieldName        | expectedError                      |
-      |                  | pass123  | pass123     | emailField       | This is a required field.          |
-      | test@example.com | short    | short       | passwordField    | Please enter 6 or more characters. |
-      | test@example.com | pass123  | mismatch    | confirmPassField |                                    |
+      | email            | password       | confirmPass  | fieldName        | expectedError                                                       |
+      |    test@gmail    | validPass123   | validPass123 | emailField       | Please enter a valid email address. For example johndoe@domain.com. |
+      | test@example.com | short          | short        | passwordField    | Please enter more characters or clean leading or trailing spaces.   |
+      | test@example.com | pass123        | mismatch     | confirmPassField | Please make sure your passwords match.                              |
