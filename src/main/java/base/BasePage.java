@@ -1,0 +1,73 @@
+package base;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+/**
+ * BasePage class
+ * ----------------
+ * This class provides all reusable Selenium interactions (click, sendKeys, waits, etc.)
+ * Every page object will extend this class to avoid code duplication (DRY principle).
+ */
+public class BasePage {
+    protected WebDriver driver;
+    private final WebDriverWait wait;
+
+    // Constructor initializes WebDriver and WebDriverWait
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    /** Clicks on a given WebElement after waiting for it to be clickable. */
+    protected void click(By locator) {
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+    }
+
+    /** Types text into a field after ensuring it's visible. */
+    protected void type(By locator, String text) {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.clear();
+        element.sendKeys(text);
+    }
+
+    /** Returns the visible text from an element. */
+    protected String getText(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
+    }
+
+    /** Waits for an element to be visible. */
+    protected void waitForVisibility(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    /** Checks if an element is displayed. */
+    protected boolean isDisplayed(By locator) {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+            //return element.isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    /** Scrolls the page until the specified element is visible. */
+    public void scrollToElement(By locator) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", locator);
+    }
+
+    public void scrollAndClick(By locator) {
+        scrollToElement(locator);
+        click(locator);
+    }
+
+    public void scrollAndType(By locator, String text){
+        scrollToElement(locator);
+        type(locator, text);
+    }
+}
