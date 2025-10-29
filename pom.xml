@@ -67,6 +67,15 @@
             <version>7.30.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-bom -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-bom</artifactId>
+            <version>2.29.0</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
@@ -82,7 +91,7 @@
 
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
-            <groupId>org.aspectj</groupId>
+            <groupId>org.aspectj    </groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.22</version>
             <scope>runtime</scope>

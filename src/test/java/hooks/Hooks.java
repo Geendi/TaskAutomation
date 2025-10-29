@@ -29,20 +29,6 @@ public class Hooks {
         WebDriverFactory.getDriver().get(ConfigReader.getProperty("baseUrl"));
     }
 
-/*    @After
-    public void teardown(Scenario scenario) {
-        WebDriver driver = WebDriverFactory.getDriver();
-
-        // 1. Take a screenshot if the scenario failed
-        if (scenario.isFailed() && driver != null) {
-            final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "FailedScenarioScreenshot");
-        }
-
-        // 2. Quit the driver using your WebDriverFactory
-        WebDriverFactory.quitDriver();
-    }*/
-
     @After
     public void teardown(Scenario scenario) {
         WebDriver driver = WebDriverFactory.getDriver();

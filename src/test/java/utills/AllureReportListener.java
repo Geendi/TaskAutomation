@@ -6,32 +6,30 @@ import java.io.IOException;
 
 public class AllureReportListener implements ISuiteListener {
 
-    /**
-     * This method is executed after the TestNG suite is finished.
-     */
+
+
     @Override
     public void onFinish(ISuite suite) {
-        System.out.println("Test suite finished. Generating and opening Allure report...");
+        System.out.println("Test suite finished. Generating single-file HTML report...");
 
-        // Command to generate the permanent report in target/site/allure-maven-plugin
-        String generateCommand = "allure generate target/allure-results --clean -o target/site/allure-maven-plugin";
+        // The single-file flag is the fix for broken local reports.
+        String generateCommand = "allure generate allure-results --clean -o target/allure-report --single-file";
 
-        // Command to open that generated report
-        String openCommand = "allure open target/site/allure-maven-plugin";
+        // The path to the permanent index.html file
+        String openFile = "target\\allure-report\\index.html";
 
         try {
-            // Execute the 'generate' command
-            Process generateProcess = Runtime.getRuntime().exec(generateCommand);
-            // Wait for it to finish before opening
+            // 1. Execute GENERATE command (wrapped in cmd /c for reliability)
+            Process generateProcess = Runtime.getRuntime().exec(new String[]{"cmd", "/c", generateCommand});
             generateProcess.waitFor();
 
-            System.out.println("Allure report generated. Opening...");
+            System.out.println("Allure single-file report generated at: target/allure-report/index.html");
 
-            // Execute the 'open' command
-            Runtime.getRuntime().exec(openCommand);
+            // 2. Execute OPEN command (cmd /c start)
+            Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start", openFile});
 
         } catch (IOException | InterruptedException e) {
-            System.out.println("Error opening Allure report: " + e.getMessage());
+            System.out.println("ERROR: Could not open Allure report automatically.");
             e.printStackTrace();
         }
     }

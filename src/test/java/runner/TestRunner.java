@@ -15,7 +15,6 @@ import org.testng.annotations.DataProvider;
         glue = {"steps", "hooks"},                 // Path to the step definition classes
         plugin = {                                // Plugins for reporting
                 "pretty",
-                //"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         },
         tags = "@LoginTest"
