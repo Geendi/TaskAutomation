@@ -2,8 +2,6 @@ package pages;
 
 import base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * HomePage class
@@ -16,46 +14,32 @@ public class HomePage extends BasePage {
 
     private final By accountMenu = By.cssSelector("a[class='skip-link skip-account'] span[class='label']");
     private final By loginLink = By.linkText("Log In");
-    private final By logoutButton = By.linkText("Log Out");
     private final By registerLink = By.linkText("Register");
-    private final By accessoriesLink = By.xpath("//a[contains(text(),'Accessories')]");
     private final By loggedInIndicator = By.cssSelector("div[class='page-title'] h1");
+    private final By accessoriesLink = By.linkText("Accessories");
+    private final By shoesSubCategoryLink = By.linkText("Shoes");
+
 
     public HomePage() {
         super();
-        //PageFactory.initElements(driver, this);
     }
 
-    /** Navigate to Login page by clicking the login link. */
     public LoginPage clickLoginLink() {
         click(accountMenu);
         click(loginLink);
         return new LoginPage();
     }
 
-
-    public void logout(){
-        click(accountMenu);
-        click(logoutButton);
-        //return new LoginPage(driver);
-    }
-
-    /** Navigate to Registration page by clicking the register link. */
     public RegistrationPage clickRegisterLink() {
         click(accountMenu);
         click(registerLink);
         return new RegistrationPage();
     }
 
-    /** Navigate to Accessories page by clicking Accessories link. */
-    public AccessoriesPage clickAccessories() {
-        click(accessoriesLink);
-        return new AccessoriesPage();
-    }
-
-    /** Returns true if logged-in indicator is displayed (basic login assertion). */
-    public boolean isUserLoggedIn() {
-        return isDisplayed(loggedInIndicator);
+    public ShoesPage hoverAndClickShoes() {
+        moveToElement(accessoriesLink);
+        click(shoesSubCategoryLink);
+        return new ShoesPage();
     }
 
     public String assertLoggedIn(){

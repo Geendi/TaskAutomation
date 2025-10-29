@@ -1,8 +1,11 @@
 package base;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.ShoesPage;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -16,12 +19,14 @@ import java.time.Duration;
 public class BasePage {
     protected WebDriver driver;
     private final WebDriverWait wait;
+    protected Actions actions;
 
     // Constructor now gets the driver from the factor
     public BasePage() {
         this.driver = WebDriverFactory.getDriver();
         int waitTime = Integer.parseInt(ConfigReader.getProperty("implicitWait"));
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
+        this.actions = new Actions(driver);
     }
 
     /** Clicks on a given WebElement after waiting for it to be clickable. */
@@ -57,6 +62,11 @@ public class BasePage {
         }
     }
 
+    public void moveToElement(By locator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        actions.moveToElement(element).perform();
+    }
+
     /** Scrolls the page until the specified element is visible. */
     public void scrollToElement(By locator) {
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -72,5 +82,11 @@ public class BasePage {
     public void scrollAndType(By locator, String text){
         scrollToElement(locator);
         type(locator, text);
+    }
+
+    public void selectByText(By locator, String text) {
+        WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        Select select = new Select(dropdownElement);
+        select.selectByVisibleText(text);
     }
 }

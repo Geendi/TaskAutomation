@@ -2,8 +2,6 @@ package pages;
 
 import base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * ProductPage class
@@ -13,31 +11,54 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class ProductPage extends BasePage {
 
-    private final By colorOption = By.cssSelector(".color-options .option");
-    private final By sizeOption = By.cssSelector(".size-options .option");
-    private final By addToCartButton = By.cssSelector("product-addtocart-button");
-    private final By successMessage = By.cssSelector(".color-options .option");
+    private final By colorOption = By.cssSelector("img[alt='Black']");
+    private final By colorErrorMessage = By.id("advice-required-entry-attribute92");
+    private final By sizeOption = By.id("swatch98");
+    private final By sizeErrorMessage = By.id("advice-required-entry-attribute186");
+    private final By addToCartButton = By.cssSelector("button[title='Add to Cart']");
+    private final By addToCartButton2 = By.cssSelector(".btn-cart");
+    private final By successMessage = By.cssSelector("li[class='success-msg'] ul li span");
+    private final By productTitle = By.cssSelector(".h1");
+    private final By selectedColorHighlighted = By.id("select_label_color");
+    private final By selectedSizeHighlighted = By.id("select_label_shoe_size");
 
     public ProductPage() {
         super();
-        //PageFactory.initElements(driver, this);
     }
 
-    /** Selects product color and size before adding to cart. Returns same page for chaining. */
-    public ProductPage selectColorAndSize() {
+    public void selectColor() {
         click(colorOption);
+    }
+
+    public String assertSelectedColor(){
+        return getText(selectedColorHighlighted);
+    }
+
+    public void selectSize(){
         click(sizeOption);
-        return this;
     }
 
-    /** Adds product to cart and returns HomePage after navigation to reflect app flow. */
-    public HomePage addToCart() {
-        click(addToCartButton);
-        return new HomePage();
+    public String assertSelectedSize(){
+        return getText(selectedSizeHighlighted);
     }
 
-    /** Returns the confirmation message displayed after adding to cart. */
-    public String getConfirmationMessage() {
+    public void addToCart() {
+        scrollAndClick(addToCartButton);
+    }
+
+    public String getColorErrorMessage(){
+        return getText(colorErrorMessage);
+    }
+
+    public String getSizeErrorMessage(){
+        return getText(sizeErrorMessage);
+    }
+
+    public String getConfirmationMessageOfAddedProduct() {
         return getText(successMessage);
+    }
+
+    public String assertProductTitle(){
+        return getText(productTitle);
     }
 }
