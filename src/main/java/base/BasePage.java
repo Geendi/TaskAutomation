@@ -21,7 +21,7 @@ public class BasePage {
     private final WebDriverWait wait;
     protected Actions actions;
 
-    // Constructor now gets the driver from the factor
+    /** Constructor now gets the driver from the factor */
     public BasePage() {
         this.driver = WebDriverFactory.getDriver();
         int waitTime = Integer.parseInt(ConfigReader.getProperty("implicitWait"));
@@ -53,20 +53,12 @@ public class BasePage {
     }
 
     /**
-     * Waits for an element to be visible.
-     */
-    protected void waitForVisibility(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
-    }
-
-    /**
      * Checks if an element is displayed.
      */
     protected boolean isDisplayed(By locator) {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
             return true;
-            //return element.isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }

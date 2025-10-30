@@ -2,7 +2,6 @@ package runner;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-import org.testng.annotations.DataProvider;
 
 /**
  * TestRunner class
@@ -17,17 +16,9 @@ import org.testng.annotations.DataProvider;
                 "pretty",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         },
-        tags = "@LoginTest"
+        /** Read the tag dynamically from the system property */
+        tags = "${cucumber.filter.tags}"
 
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
-
-    /**
-     * Overrides scenarios method to enable parallel execution via TestNG and avoid sequential execution for test runner.
-     */
-/*    @Override
-    @DataProvider(parallel = false)
-    public Object[][] scenarios() {
-        return super.scenarios();
-    }*/
 }

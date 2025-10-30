@@ -16,22 +16,16 @@ import java.io.ByteArrayInputStream;
 
 public class Hooks {
 
-    private final By closeCookies = By.xpath("//div[@class='close_btn_thick']");
     private final By optIn = By.id("privacy_pref_optin");
     private final By submitButton = By.id("consent_prompt_submit");
 
     @Before
     public void setup() {
-        // 1. Load properties from your ConfigReader
         ConfigReader.loadProperties();
         String browser = ConfigReader.getProperty("browser");
         int implicitWait = Integer.parseInt(ConfigReader.getProperty("implicitWait"));
         int pageLoadTimeout = Integer.parseInt(ConfigReader.getProperty("pageLoadTimeout"));
-
-        // 2. Initialize the driver using your WebDriverFactory
         WebDriverFactory.initializeDriver(browser, implicitWait, pageLoadTimeout);
-
-        // 3. Navigate to the base URL
         WebDriverFactory.getDriver().get(ConfigReader.getProperty("baseUrl"));
         BasePage basePage = new BasePage();
         basePage.acceptCookies(optIn, submitButton);
@@ -46,7 +40,7 @@ public class Hooks {
             if (scenario.isFailed()) {
                 final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
-                // This is the new Allure attachment method
+                /** This is the new Allure attachment method */
                 Allure.addAttachment(
                         "FailedScenarioScreenshot",
                         "image/png",

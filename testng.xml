@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Cucumber Test Suite">
+<suite name="Sequential E-Commerce Suite" preserve-order="true" verbose="2">
     <listeners>
         <listener class-name="utills.AllureReportListener"/>
     </listeners>
-    <test name="Cucumber Tests" verbose="2">
+
+    <test name="Phase 1 - User Registration">
+        <parameter name="cucumber.filter.tags" value="@Registration"/>
+        <classes>
+            <class name="runner.TestRunner"/>
+        </classes>
+    </test>
+
+    <test name="Phase 2 - User Login">
+        <parameter name="cucumber.filter.tags" value="@Login"/>
+        <classes>
+            <class name="runner.TestRunner"/>
+        </classes>
+    </test>
+
+    <test name="Phase 3 - Add To Cart">
+        <parameter name="cucumber.filter.tags" value="@AddToCart"/>
         <classes>
             <class name="runner.TestRunner"/>
         </classes>
     </test>
 </suite>
+

@@ -15,8 +15,7 @@ public class ProductPage extends BasePage {
     private final By colorErrorMessage = By.id("advice-required-entry-attribute92");
     private final By sizeOption = By.id("swatch98");
     private final By sizeErrorMessage = By.id("advice-required-entry-attribute186");
-    private final By addToCartButton = By.cssSelector("button[title='Add to Cart']");
-    private final By addToCartButton2 = By.cssSelector(".btn-cart");
+    private final By addToCartButton = By.cssSelector("button[onclick='productAddToCartForm.submit(this)']");
     private final By successMessage = By.cssSelector("li[class='success-msg'] ul li span");
     private final By productTitle = By.cssSelector(".h1");
     private final By selectedColorHighlighted = By.id("select_label_color");

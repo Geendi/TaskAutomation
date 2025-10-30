@@ -11,9 +11,4 @@ public class TestDataGenerator {
         long timestamp = System.currentTimeMillis();
         return "user" + timestamp + "@example.com";
     }
-
-    public static String generateIncorrectEmail(){
-        long timestamp = System.currentTimeMillis();
-        return "user" + timestamp;
-    }
 }

@@ -19,9 +19,19 @@ public class AddToCartSteps {
     private ShoesPage shoesPage;
     private ProductPage productPage;
 
-    @When("User navigates to Shoes via the Accessories menu")
-    public void user_navigates_to_shoes_via_the_accessories_menu() {
-        shoesPage = homePage.hoverAndClickShoes();
+    @When("User hover accessories dropdown menu")
+    public void user_hover_accessories_dropdown_menu(){
+        shoesPage = homePage.hoverAccessories();
+    }
+
+    @Then("User can view accessories dropdown menu is displayed")
+    public void user_can_view_accessories_dropdown_menu_is_displayed(){
+        homePage.accessoriesDropdownIndicator();
+    }
+
+    @When("User clicks on shoes section")
+    public void user_clicks_on_shoes_section(){
+        homePage.clickShoesSection();
     }
 
     @Then("User should be redirected to shoes page with {string} title")
@@ -37,7 +47,7 @@ public class AddToCartSteps {
 
     @And("User clicks on view details button of the product")
     public void user_clicks_on_view_details_button_of_the_product() {
-        shoesPage.openDorianProduct();
+        this.productPage = shoesPage.openDorianProduct();
     }
 
     @Then("User is redirected to the product page for {string}")
@@ -61,6 +71,12 @@ public class AddToCartSteps {
     @When("User clicks the add to cart button")
     public void user_clicks_the_add_to_cart_button() {
         productPage.addToCart();
+    }
+
+    @Then("User sees an error indicating the required fields {string}")
+    public void user_sees_an_error_indicating_the_required_fields(String error){
+        Assert.assertTrue(productPage.getColorErrorMessage().contains(error), "Error message not found");
+        Assert.assertTrue(productPage.getSizeErrorMessage().contains(error), "Error message not found");
     }
 
     @Then("User should be redirected to checkout page with {string} title")
