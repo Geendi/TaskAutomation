@@ -16,8 +16,9 @@ public class HomePage extends BasePage {
     private final By loginLink = By.linkText("Log In");
     private final By registerLink = By.linkText("Register");
     private final By loggedInIndicator = By.cssSelector("div[class='page-title'] h1");
-    private final By accessoriesLink = By.linkText("Accessories");
+    private final By accessoriesLink = By.cssSelector("div#header-nav a[href*='accessories.html']");
     private final By shoesSubCategoryLink = By.linkText("Shoes");
+    private final By closeCookies = By.xpath("//div[@class='close_btn_thick']");
 
 
     public HomePage() {

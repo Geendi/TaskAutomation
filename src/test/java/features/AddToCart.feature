@@ -19,4 +19,4 @@ Feature: AddToCart
     And a success message confirms the product has been added to the shopping cart "<success message>"
     Examples:
       | username              | password     | expected     | title | product name             | selected color | selected size | page title    | success message                                           |
-      | validUser@example.com | ValidPass123 | MY DASHBOARD | Shoes | Dorian Perforated Oxford | Black          | 10            | SHOPPING CART | Dorian Perforated Oxford was added to your shopping cart. |
+      | validUser@example.com | ValidPass123 | MY DASHBOARD | SHOES | Dorian Perforated Oxford | Black          | 10            | SHOPPING CART | Dorian Perforated Oxford was added to your shopping cart. |

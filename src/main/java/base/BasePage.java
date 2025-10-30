@@ -29,29 +29,39 @@ public class BasePage {
         this.actions = new Actions(driver);
     }
 
-    /** Clicks on a given WebElement after waiting for it to be clickable. */
+    /**
+     * Clicks on a given WebElement after waiting for it to be clickable.
+     */
     protected void click(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
-    /** Types text into a field after ensuring it's visible. */
+    /**
+     * Types text into a field after ensuring it's visible.
+     */
     protected void type(By locator, String text) {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.clear();
         element.sendKeys(text);
     }
 
-    /** Returns the visible text from an element. */
+    /**
+     * Returns the visible text from an element.
+     */
     protected String getText(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
     }
 
-    /** Waits for an element to be visible. */
+    /**
+     * Waits for an element to be visible.
+     */
     protected void waitForVisibility(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    /** Checks if an element is displayed. */
+    /**
+     * Checks if an element is displayed.
+     */
     protected boolean isDisplayed(By locator) {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -67,7 +77,9 @@ public class BasePage {
         actions.moveToElement(element).perform();
     }
 
-    /** Scrolls the page until the specified element is visible. */
+    /**
+     * Scrolls the page until the specified element is visible.
+     */
     public void scrollToElement(By locator) {
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -79,7 +91,7 @@ public class BasePage {
         click(locator);
     }
 
-    public void scrollAndType(By locator, String text){
+    public void scrollAndType(By locator, String text) {
         scrollToElement(locator);
         type(locator, text);
     }
@@ -88,5 +100,11 @@ public class BasePage {
         WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(locator));
         Select select = new Select(dropdownElement);
         select.selectByVisibleText(text);
+    }
+
+
+    public void acceptCookies(By firstLocator, By secondLocator){
+        wait.until(ExpectedConditions.elementToBeClickable(firstLocator)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(secondLocator)).click();
     }
 }
