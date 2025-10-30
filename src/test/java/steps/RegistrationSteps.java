@@ -20,7 +20,7 @@ public class RegistrationSteps {
     private RegistrationPage regPage;
 
     /**
-     * BDD Principle: Keeping Gherkin Focused
+     * Keeping Gherkin Focused
      * For a test focusing on invalid inputs (like a short password or an invalid email), the First Name and Last Name are irrelevant noise. They must be present and valid for the system to process the form, but they do not change the outcome of the negative test.
      *
      * By using constants, we keep the Gherkin Scenario Outline clear and concise, containing only the variables that matter to the test (Email, Password, Confirm Pass, Expected Error). If we included firsName and lastName, the Examples table would have two identical columns repeated for every single row.*/
@@ -52,11 +52,6 @@ public class RegistrationSteps {
     @Then("User should see the success message {string}")
     public void user_should_see_the_success_message(String expectedMessage) {
         regPage.verifySuccessMessage(expectedMessage);
-    }
-
-    @When("User navigates to Registration page")
-    public void user_navigates_to_registration_page() {
-        regPage = homePage.clickRegisterLink();
     }
 
     @When("User attempts registration with invalid email {string}, password {string}, and confirm password {string}")

@@ -12,8 +12,9 @@ Feature: AddToCart
     Then User can view accessories dropdown menu is displayed
     When User clicks on shoes section
     Then User should be redirected to shoes page with "<title>" title
-    And User filters the shoes in ascending order by price
-    And User clicks on view details button of the product
+    When User filters the shoes in ascending order by price
+    Then Users should be able to view products displayed in ascending order by price
+    When User clicks on view details button of the product
     Then User is redirected to the product page for "<product name>"
     When User selects the product's color and size
     Then User can view the selected color "<selected color>" and size "<selected size>" displayed
@@ -33,8 +34,9 @@ Feature: AddToCart
     Then User can view accessories dropdown menu is displayed
     When User clicks on shoes section
     Then User should be redirected to shoes page with "<title>" title
-    And User filters the shoes in ascending order by price
-    And User clicks on view details button of the product
+    When User filters the shoes in ascending order by price
+    Then Users should be able to view products displayed in ascending order by price
+    When User clicks on view details button of the product
     Then User is redirected to the product page for "<product name>"
     When User clicks the add to cart button
     Then User sees an error indicating the required fields "<error message>"

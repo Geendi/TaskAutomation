@@ -1,4 +1,4 @@
-package utills; // Or whatever package you chose
+package utills;
 
 import org.testng.ISuite;
 import org.testng.ISuiteListener;

@@ -39,13 +39,13 @@ public class AddToCartSteps {
         Assert.assertTrue(shoesPage.assertShoesPage().contains(expectedTitle), "Wrong title");
     }
 
-    @And("User filters the shoes in ascending order by price")
+    @When("User filters the shoes in ascending order by price")
     public void user_filters_the_shoes_in_ascending_order_by_price(){
         shoesPage.sortByPrice();
     }
 
 
-    @And("User clicks on view details button of the product")
+    @When("User clicks on view details button of the product")
     public void user_clicks_on_view_details_button_of_the_product() {
         this.productPage = shoesPage.openDorianProduct();
     }
@@ -87,5 +87,10 @@ public class AddToCartSteps {
     @And("a success message confirms the product has been added to the shopping cart {string}")
     public void the_confirmation_message_should_be_displayed(String expectedMessage) {
         Assert.assertTrue(productPage.getConfirmationMessageOfAddedProduct().contains(expectedMessage), "Confirmation message not found.");
+    }
+
+    @Then("Users should be able to view products displayed in ascending order by price")
+    public void the_products_should_be_displayed_in_ascending_order_by_price() {
+        shoesPage.verifyPricesAreSortedAscending();
     }
 }
