@@ -23,9 +23,8 @@ public class Hooks {
     public void setup() {
         ConfigReader.loadProperties();
         String browser = ConfigReader.getProperty("browser");
-        int implicitWait = Integer.parseInt(ConfigReader.getProperty("implicitWait"));
         int pageLoadTimeout = Integer.parseInt(ConfigReader.getProperty("pageLoadTimeout"));
-        WebDriverFactory.initializeDriver(browser, implicitWait, pageLoadTimeout);
+        WebDriverFactory.initializeDriver(browser, pageLoadTimeout);
         WebDriverFactory.getDriver().get(ConfigReader.getProperty("baseUrl"));
         BasePage basePage = new BasePage();
         basePage.acceptCookies(optIn, submitButton);
@@ -40,7 +39,7 @@ public class Hooks {
             if (scenario.isFailed()) {
                 final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
-                /** This is the new Allure attachment method */
+                // This is the new Allure attachment method
                 Allure.addAttachment(
                         "FailedScenarioScreenshot",
                         "image/png",

@@ -22,7 +22,7 @@ public class BasePage {
     /** Constructor now gets the driver from the factor */
     public BasePage() {
         this.driver = WebDriverFactory.getDriver();
-        int waitTime = Integer.parseInt(ConfigReader.getProperty("implicitWait"));
+        int waitTime = Integer.parseInt(ConfigReader.getProperty("explicitWaitTimeout"));
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
         this.actions = new Actions(driver);
     }
@@ -53,12 +53,10 @@ public class BasePage {
     /**
      * Checks if an element is displayed.
      */
-    protected boolean isDisplayed(By locator) {
+    public void isDisplayed(By locator) {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            return true;
-        } catch (TimeoutException e) {
-            return false;
+        } catch (TimeoutException ignored) {
         }
     }
 

@@ -21,7 +21,7 @@ public class WebDriverFactory {
         return driver.get();
     }
 
-    public static void initializeDriver(String browser, int implicitWait, int pageLoadTimeout) {
+    public static void initializeDriver(String browser, int pageLoadTimeout) {
         WebDriver webDriver;
         if (Objects.equals(browser, "edge")) {
             WebDriverManager.edgedriver().setup();
@@ -31,7 +31,6 @@ public class WebDriverFactory {
             webDriver = new ChromeDriver();
         }
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
         webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(pageLoadTimeout));
         driver.set(webDriver);
     }
